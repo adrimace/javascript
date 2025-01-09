@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercícios - Funções Anónimas</title>
+</head>
+<body>
+    <script>
+        (function () {
+            console.log("isto foi demasiado rápido!");
+        })();
+
+        function formulario(nome){
+            return function(nomePessoa){
+                return nome + ": " + nomePessoa;
+            };
+        };
+
+        const campoNome = formulario("Nome");
+        campoNome("Vitor");
+
+        function Produto(nome, valor){
+            this.nome = nome;
+            this.valor = valor;
+        };
+
+        const livro = new Produto("Livro", 6);
+        livro.valor = 2.5;
+        console.log(parseInt(livro.valor));
+
+    </script>
+</body>
+</html>

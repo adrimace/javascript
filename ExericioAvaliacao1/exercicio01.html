@@ -11,10 +11,12 @@
         for(i=0; i<paises.length; i++){
             console.log(paises[i]);
         };
-        paises.length;
+        function numeroPaises(paises){
+            return paises.length;
+        };
         paises.unshift("Portugal");
         paises.push("Espanha");
-        console.log(paises.slice(10));
+        console.log(paises.slice(-3));
         console.log(paises.join(" - "));
     </script>
 </body>

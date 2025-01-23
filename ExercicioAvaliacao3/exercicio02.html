@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercicios eventos focus, blue e setInterval</title>
+</head>
+<body>
+    <textarea onfocus="estouFocus()" onblur="estouBlur()"></textarea>
+    <button onclick="iniciar()">botao para iniciar</button>
+    <button onclick="parar()">botao para parar</button>
+    <script>
+        const estouFocus = () => console.log("Isto é um evento focus na textarea");
+        const estouBlur = () => console.log("Isto é um evento blur na textarea");
+        
+        let intervalo;
+        const iniciar = () => {
+            intervalo = setInterval(() => console.log("setInterval começou!"), 2000);
+        };
+        const parar = () => {
+            clearInterval(intervalo);
+            console.log("setInterval parou");
+        };
+    </script>
+</body>
+</html>

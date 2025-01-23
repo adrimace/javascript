@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercicio Eventos criar elementos e setTimeOut</title>
+</head>
+<body>
+    <script>
+        const umaDiv = document.createElement("div");
+        umaDiv.setAttribute("id", "container");
+        umaDiv.setAttribute("class", "exercicio");
+
+        const umaSpan = document.createElement("span");
+        umaSpan.setAttribute("class", "exercicio");
+
+        umaDiv.appendChild(umaSpan);
+        document.body.appendChild(umaDiv);
+        const texto = document.createTextNode("Isto é o conteúdo da span");
+        umaSpan.appendChild(texto);
+
+        const elementos = document.querySelectorAll(".exercicio");
+        console.log(elementos);
+
+        const botao1 = document.createElement("button");
+        umaDiv.prepend(botao1);
+        // para ficar mais visivel os botoes,coloquei-lhes texto
+        const inicio = document.createTextNode("inicio");
+        botao1.appendChild(inicio);
+
+        const botao2 = document.createElement("button");
+        umaDiv.appendChild(botao2);
+        const fim = document.createTextNode("fim");
+        botao2.appendChild(fim);
+
+        umaDiv.addEventListener("click",() => {
+            setTimeout(() => console.log("o setTimeout começou!"), 1000);
+        });
+    </script>
+</body>
+</html>

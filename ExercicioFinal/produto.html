@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Produto</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <script>
+      const queryString = new URLSearchParams(window.location.search);
+      const idProduto = queryString.get("id");
+
+      const obterId = (idProduto) => {
+        fetch(`https://fakestoreapi.com/products/${idProduto}`)
+          .then((response) => response.json())
+          .then((produto) => {
+            dadosProduto(produto);
+            categoriaProdutos(produto.category);
+          });
+      };
+
+      const dadosProduto = (produto) => {
+        const container = document.createElement("div");
+        container.classList.add("produto");
+
+        const categoria = document.createElement("h4");
+        categoria.textContent = `Category: ${produto.category}`;
+        container.appendChild(categoria);
+
+        const titulo = document.createElement("h3");
+        titulo.textContent = produto.title;
+        container.appendChild(titulo);
+
+        const imagem = document.createElement("img");
+        imagem.classList.add("containerImagem");
+        imagem.src = produto.image;
+        container.appendChild(imagem);
+
+        const descricao = document.createElement("span");
+        descricao.textContent = produto.description;
+        container.appendChild(descricao);
+
+        const preco = document.createElement("p");
+        preco.textContent = `Price: $${produto.price}`;
+        container.appendChild(preco);
+
+        const rating = document.createElement("span");
+        rating.textContent = `Rate: ${produto.rating.rate} Count: ${produto.rating.count}`;
+        container.appendChild(rating);
+
+        document.body.appendChild(container);
+      };
+
+      const mostrarFooter = () => {
+        const footer = document.createElement("footer");
+        const textoFooter = document.createElement("p");
+        const date = new Date();
+        textoFooter.textContent = `Copyright ${date.getFullYear()}`;
+        footer.appendChild(textoFooter);
+        document.body.appendChild(footer);
+      };
+
+      const categoriaProdutos = (categoria) => {
+        fetch(`https://fakestoreapi.com/products/category/${categoria}`)
+          .then((response) => response.json())
+          .then((produtos) => {
+            const produtosEscolhidos = produtos.slice(0, 3);
+            const containerTexto = document.createElement("div");
+            containerTexto.classList.add("container-texto");
+
+            const texto = document.createElement("h5");
+            texto.textContent = "Produtos Semelhantes: ";
+            containerTexto.appendChild(texto);
+
+            const containerProdutos = document.createElement("div");
+            containerProdutos.classList.add("container-produtos");
+
+            produtosEscolhidos.forEach((produto) => {
+              const produtosSemelhantes = document.createElement("div");
+              produtosSemelhantes.classList.add("produto");
+
+              const titulo = document.createElement("h6");
+              titulo.textContent = produto.title;
+              produtosSemelhantes.appendChild(titulo);
+
+              const imagem = document.createElement("img");
+              imagem.src = produto.image;
+              produtosSemelhantes.appendChild(imagem);
+              containerProdutos.appendChild(produtosSemelhantes);
+            });
+            containerTexto.appendChild(containerProdutos);
+            document.body.appendChild(containerTexto);
+
+            mostrarFooter();
+          });
+      };
+      obterId(idProduto);
+    </script>
+  </body>
+</html>

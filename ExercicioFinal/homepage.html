@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homepage</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <script>
+      const carrinho = {
+        userId: 1,
+        date: "",
+        products: [],
+      };
+      const addToCart = (produto) => {
+        const date = new Date();
+        carrinho.date = `${date.getFullYear()} - ${
+          date.getMonth() + 1
+        } - ${date.getDate()}`;
+
+        const produtoExistente = carrinho.products.find(
+          (produto) => produto.productId === produto.id
+        );
+
+        if (produtoExistente) {
+          produtoExistente.quantity += 1;
+        } else {
+          carrinho.products.push({
+            productId: produto.id,
+            quantity: 1,
+          });
+        }
+      fetch("https://fakestoreapi.com/carts/7", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(carrinho),
+      })
+        .then((response) => response.json())
+        .then((carrinho) => {
+          console.log("Produto adicionado ao carrinho: ", carrinho);
+        })
+        .catch((erro) => {
+          console.log("erro ao adicionar produto ao carrinho", erro);
+        });
+    };
+      fetch("https://fakestoreapi.com/products")
+        .then((responde) => responde.json())
+        .then((produtos) => {
+          const grelhaProdutos = document.createElement("div");
+          grelhaProdutos.classList.add("grelhaProdutos");
+          document.body.appendChild(grelhaProdutos);
+
+          produtos.forEach((produto) => {
+            const divProduto = document.createElement("div");
+            divProduto.classList.add("produto");
+
+            const titulo = document.createElement("h3");
+            titulo.textContent = produto.title;
+            divProduto.appendChild(titulo);
+
+            const containerImagem = document.createElement("div");
+            containerImagem.classList.add("containerImagem");
+            divProduto.appendChild(containerImagem);
+
+            const imagemProduto = document.createElement("img");
+            imagemProduto.src = produto.image;
+            containerImagem.appendChild(imagemProduto);
+
+            const botao = document.createElement("button");
+            botao.textContent = "Add to Cart";
+            botao.addEventListener("click", () => {
+              addToCart(produto);
+            });
+            divProduto.appendChild(botao);
+            grelhaProdutos.appendChild(divProduto);
+          });
+        })
+        .catch((erro) => {
+          console.log("erro ao adicionar produtos", erro);
+        });
+    </script>
+  </body>
+</html>

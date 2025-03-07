@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce</title>
+</head>
+<body>
+    <script>
+        class Ecommerce {
+            constructor (){
+                this.produtos = [];
+                this.carrinho = [];
+            }
+            addProduct(produto){
+                this.produtos.push(produto);
+            }
+            setProductPrice(){
+                const produto = this.getProductById(productId);
+                if(produto){
+                    produto.price = price;
+                }
+            }
+            getAllProducts (){
+                return this.produtos;
+            }
+            getAllProductsNames (){
+                return this.produtos.map(produto => produto.name).join(" ; ");
+            }
+            getProductById (productId){
+                return this.produtos.find(produto => produto.id === productId);
+            }
+            getProductByName (name){
+                return this.produtos.find(produto => produto.name === name);
+            }
+            addProductToCart (produto){
+                return this.carrinho.push(produto);
+            }
+            getCart (){
+                return this.carrinho;
+            }
+            getCartTotalPrice (){
+                return this.carrinho.reduce((total, produto) => total + produto.price, 0 );
+            }
+        };
+
+        const loja = new Ecommerce();
+        loja.addProduct({name: "batom", price: 8, id: 1});
+        loja.addProduct({name: "rimel", price: 10, id: 2});
+        loja.addProduct({name: "base", price: 12, id: 3});
+        
+    </script>
+</body>
+</html>
